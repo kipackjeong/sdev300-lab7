@@ -1,0 +1,21 @@
+************* Module app
+app.py:39:0: C0301: Line too long (116/100) (line-too-long)
+app.py:162:0: C0301: Line too long (116/100) (line-too-long)
+app.py:1:0: C0114: Missing module docstring (missing-module-docstring)
+app.py:17:0: C0115: Missing class docstring (missing-class-docstring)
+app.py:17:0: R0903: Too few public methods (0/2) (too-few-public-methods)
+app.py:37:0: C0116: Missing function or method docstring (missing-function-docstring)
+app.py:89:11: W0703: Catching too general exception Exception (broad-except)
+app.py:89:4: C0103: Variable name "e" doesn't conform to snake_case naming style (invalid-name)
+app.py:109:4: W0621: Redefining name 'result' from outer scope (line 43) (redefined-outer-name)
+app.py:138:21: W0613: Unused argument 'usr_input' (unused-argument)
+app.py:138:32: W0613: Unused argument 'input_for' (unused-argument)
+app.py:180:11: W0703: Catching too general exception Exception (broad-except)
+app.py:180:4: C0103: Variable name "e" doesn't conform to snake_case naming style (invalid-name)
+app.py:2:0: W0611: Unused import os (unused-import)
+app.py:3:0: W0611: Unused import sys (unused-import)
+app.py:7:0: W0611: Unused Fore imported from colorama (unused-import)
+
+-----------------------------------
+Your code has been rated at 7.72/10
+

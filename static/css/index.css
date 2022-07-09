@@ -1,0 +1,127 @@
+body {
+  width: 100vw;
+  height: 75vh;
+  overflow-x: hidden;
+
+  display: flex;
+  flex-direction: column;
+  
+  justify-content: center;
+  align-items: center;
+}
+
+header {
+  display: flex;
+
+  flex-direction: column;
+  align-items: center;
+}
+
+header p { 
+  font-size: large;
+}
+
+
+#main {
+width: 100%;
+display: flex;
+flex-direction: column;
+align-items: center;
+}
+
+.warning-msg{
+    text-align: center;
+    color: red;
+    position: relative;
+}
+.warning-block {
+  border-color: red;
+}
+
+#search-form {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.search-form_inputs {
+  width: 100%;
+  margin: 20px;
+  justify-content: center;
+}
+
+.search-form_inputs_input-panel {
+  width: 50%;
+}
+
+.search-form_inputs_input-panel,
+.search-form_inputs_select-panel {
+  height: 100%;
+  justify-content: end;
+}
+
+.form-select{
+  width: 100px;
+  height: 35px;
+  font-size: medium;
+}
+.search-form_inputs_select-panel span,
+.search-form_inputs_input-panel span {
+  position: relative;
+}
+.search-form_btn:disabled{
+  opacity:0.5;
+}
+
+.form-input {
+  width: 100%;
+  height: 35px;
+  font-size: medium;
+}
+
+.form-btn {
+  width: 100px;
+  height: 40px;
+
+  font-size: large;
+  font-weight: bold;
+
+  color: white;
+  background: #7b7bff;
+  border: 1px solid white;
+
+  cursor:pointer;
+}
+
+.auth-form-cont {
+  width: 500px;
+  margin: auto;
+  align-items: center;
+}
+
+.auth-form {
+  width: 100%;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.auth-form input,
+.auth-form button {
+  width: 200px;
+  margin: 5px;
+}
+.auth-form-cont a {
+  width: 100px;
+  text-align: center;
+}

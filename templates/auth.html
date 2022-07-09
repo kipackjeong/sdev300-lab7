@@ -1,0 +1,44 @@
+{% extends "layout.html" %} {% block content%}
+<div class="flex-column auth-form-cont">
+  <form
+    action = "/{{form_for}}"
+    method = "POST"
+    class="flex-column auth-form {{form_for}}-form"
+  >
+    {{form.csrf_token}} 
+
+    {% if form_for == "register" %}
+
+      {{ form.firstname(size=20, placeholder= form.firstname.label.text, class = "form-input")}}
+
+      {{ form.lastname(size=20, placeholder= form.lastname.label.text, class ="form-input")}}
+
+    {% endif %}
+
+      {% with err_msg = get_flashed_messages()[0] %}
+        <span class="warning-msg">
+
+          {% if err_msg == "wrong username"%}
+            the username does not exist.
+          {% elif err_msg == "wrong password" %}
+            the password does not match
+          {% endif %}
+
+        </span>
+      {% endwith %}
+
+      {{ form.username(size=20, placeholder=form.username.label.text, class ="form-input")}}
+
+      {{ form.password(size=20, placeholder=form.password.label.text, class ="form-input")}}
+
+
+
+      {{form.submit(class ="form-btn")}}
+  </form>
+
+  {% with other_form = "register" if form_for == "login" else "login" %}
+  <a href="/{{other_form}}"> {{other_form}} </a>
+  {% endwith %}
+
+</div>
+{% endblock %}

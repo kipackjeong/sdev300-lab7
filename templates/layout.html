@@ -1,0 +1,27 @@
+{% block css %}
+<link
+  href="{{ url_for('static', filename='css/index.css') }}"
+  rel="stylesheet"
+/>
+{% endblock %}
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Lab 5</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  </head>
+
+  <body>
+    <header>
+      <h1>LOGO</h1>
+      <p>You can search for housing, recipe, and weather.</p>
+    </header>
+    <div id="main">{% block content %} {% endblock %}</div>
+  </body>
+</html>

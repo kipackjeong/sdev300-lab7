@@ -1,0 +1,49 @@
+{
+  "weather_websites": {
+    "Weather Underground": {
+      "name": "Weather Underground",
+      "url": "https://www.wunderground.com",
+      "search_url": "/weather/us/{state}/{city}/{zipcode}"
+    },
+    "The Weather Channel": {
+      "name": "The Weather Channel",
+      "url": "https://weather.com",
+      "search_url": "/weather/today/l/{city}+{state}+{zipcode}"
+    },
+    "Weather Bug": {
+      "name": "Weather Bug",
+      "url": "https://www.weatherbug.com/",
+      "search_url": "/weather-forecast/now/{city}-{state}-{zipcode}"
+    }
+  },
+  "housing_websites": {
+    "Zillow": {
+      "url": "https://www.zillow.com",
+      "name": "Zillow",
+      "search_url": "/homes/for_rent/{city},{state},{zipcode}"
+    },
+    "Apartments.com": {
+      "url": "https://www.apartments.com",
+      "name": "Apartments.com",
+      "search_url": "/{city}-{state}-{zipcode}"
+    }
+  },
+
+  "recipe_websites": {
+    "Cook Pad": {
+      "name": "Cook Pad",
+      "url": "https://www.cookpad.com",
+      "search_url": "/us/search/{food}"
+    },
+    "All Recipes": {
+      "name": "All Recipes",
+      "url": "https://www.allrecipes.com",
+      "search_url": "/search/results/?search={food}"
+    },
+    "Food Network": {
+      "name": "Food Network",
+      "url": "https://www.foodnetwork.com",
+      "search_url": "/search/{food}-"
+    }
+  }
+}

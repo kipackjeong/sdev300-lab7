@@ -1,0 +1,38 @@
+{% block content %}
+
+<form id="search-form" action="/result" method="POST" name="search_form">
+  <div class="flex-row search-form_inputs">
+    <!-- Category select -->
+    <div class="flex-column search-form_inputs_select-panel">
+
+      {{form.cat_select(class = "form-select category-select")}}
+      
+    </div>
+    <!-- Search input -->
+    <div class="flex-column search-form_inputs_input-panel">
+      <span class="warning-msg"">
+
+        {% with messages = get_flashed_messages() %} {% if messages %} {% for
+        message in messages %} {{message}} {% endfor %} {% else %} {% endif %}
+        {% endwith %}
+
+
+      </span>
+
+      {{form.search(size=20, class= "form-input search-input")}}
+    </div>
+
+    <!-- Website select -->
+    <div class="flex-column search-form_inputs_select-panel">
+      {{form.web_select(class = "form-select website-select")}}
+    </div>
+  </div>
+  <!-- Search button -->
+  {{form.submit(class="form-btn search-form_btn", disabled =True)}}
+</form>
+
+{% endblock %} {% block javascript %}
+
+<script type="text/javascript" src="../static/js/search-form.js"></script>
+
+{% endblock %}
