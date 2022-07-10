@@ -1,3 +1,6 @@
+"""Authorization/Authentication view.
+"""
+
 from functools import wraps
 from flask import Blueprint, current_app as app, flash, redirect, render_template, url_for
 from flask_login import  current_user, login_remembered, login_required, login_user, logout_user

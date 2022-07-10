@@ -1,3 +1,5 @@
+""" The main view which consists `/`, `/search`, and `/websites` route. 
+"""
 from datetime import timedelta
 from flask import Blueprint, session, current_app as app
 from flask_login import current_user, login_required

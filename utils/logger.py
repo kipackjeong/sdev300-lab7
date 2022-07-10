@@ -1,3 +1,6 @@
+"""A module responsible for logging error on the console.
+"""
+
 from colorama import Fore
 
 
