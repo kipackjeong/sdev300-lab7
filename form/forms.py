@@ -9,12 +9,10 @@ class AuthForm(FlaskForm) :
                            InputRequired(), Length(min=1, max=20)])
     password = PasswordField("Password", validators=[
         DataRequired(), Length(min=12)], name ="password")
-    
 
 
 class LoginForm(AuthForm):
     submit = SubmitField("Login")
-
 
 
 class RegisterForm(AuthForm):
@@ -37,10 +35,8 @@ class RegisterForm(AuthForm):
         if not re.match("^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{12,}$", pwd):
             raise ValidationError(
                 "Password must be at least 12 characters, 1 lowercase, 1 uppercase, 1 number, and 1 special character.")
-    
-
-    
-
+            
+            
 class SearchForm(FlaskForm):
     cat_select = SelectField("category", choices=["category","housing","recipe","weather"], name="category")
     search = SearchField(

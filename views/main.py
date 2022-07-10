@@ -20,14 +20,12 @@ HOUSING_WEBS = webs_repo.get_housing_websites()
 RECIPE_WEBS = webs_repo.get_recipe_websites()
 WEATHER_WEBS = webs_repo.get_weather_websites()
 
-
 @main_bp.before_request
 def before_request():
     # session does not expire after the browser close
     session.permanent = True
     # timeout for session lifetime - 10 minutes
     app.permanent_session_lifetime = timedelta(minutes=10)
-
 
 @main_bp.route("/", methods=["GET"])
 @login_required
@@ -37,7 +35,6 @@ def index():
     
     return render_template("index.html", house_webs=HOUSING_WEBS, RECIPE_WEBS=RECIPE_WEBS, weather_webs=WEATHER_WEBS, form=search_form)
     # Register Blueprints
-
 
 @main_bp.route("/result", methods=["GET", "POST"])
 @login_required

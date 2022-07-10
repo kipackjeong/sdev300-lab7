@@ -1,5 +1,9 @@
 <!-- params = house_web, food_webs, weather_webs -->
-{% extends 'layout.html' %}     {% block content %}
+{% extends 'layout.html' %}     
+
+{% include "nav.html" %}
+
+{% block content %}
     <p>You can search for housing, recipe, and weather.</p>
     {% include 'searchform.html' %}
 {% endblock %}

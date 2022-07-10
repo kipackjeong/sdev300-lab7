@@ -3,12 +3,13 @@ from data.user import User
 from utils.logger import error
 
 class UsersDB():
+    
     def __init__(self) -> None:
         with open("./data/users.json", "r", encoding="UTF-8") as file:
             self.data: list[User] = json.load(file)
             self.data_str = self.__create_data_str()
         
-    def     find_user_by_id(self,id: str):
+    def find_user_by_id(self,id: str):
 
         found_list: list[dict] = list(
             filter(lambda user: user["id"] == id, self.data))
@@ -23,7 +24,6 @@ class UsersDB():
 
             found_user_dict: dict = found_list[0]
             # map dict -> User class instance
-
 
             return found_user_dict
 
@@ -55,7 +55,6 @@ class UsersDB():
         
         self.__save()
             
-
     def __save(self):
         
         self.data_str = self.__create_data_str()
@@ -66,7 +65,6 @@ class UsersDB():
             
         print(self.data)
         
-
     def __create_data_str(self):
 
         data_str = "["

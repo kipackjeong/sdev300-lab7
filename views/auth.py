@@ -1,6 +1,6 @@
 from functools import wraps
 from flask import Blueprint, flash, redirect, render_template, url_for
-from flask_login import LoginManager, current_user, login_user
+from flask_login import  current_user, login_remembered, login_required, login_user, logout_user
 from data import User, UsersRepo
 from form.forms import LoginForm, RegisterForm
 
@@ -50,8 +50,6 @@ def register():
 
     return render_template("auth.html", form_for="register", form=reg_form)
 
-
-
 @auth_bp.route("/login", methods=["GET", "POST"])
 @not_logged_in_required
 def login():
@@ -79,3 +77,12 @@ def login():
         return redirect(url_for("main_bp.index"))
 
     return render_template("auth.html", form_for="login", form=login_form)
+
+
+@auth_bp.route("/logout")
+@login_required
+def logout():
+    
+    logout_user()
+
+    return redirect(url_for("auth_bp.login"))

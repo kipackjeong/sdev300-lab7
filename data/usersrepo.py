@@ -1,19 +1,21 @@
 import uuid
-from flask_login import UserMixin
 from data.usersdb import UsersDB
 from passlib.hash import sha256_crypt
 from data.user import User
 
 
 class UsersRepo():    
+    
     """
     Responsible for creating User instance and save it in the UserDB and querying user from the UserDB.
     """
+    
     def __init__(self) -> None:
         self.db = UsersDB()
         
-    def query(self,id : str= None, un :  str=None) :
-        """Query `self.db`(UserDB) with the given id or username.
+    def query(self,id : str= None, un :  str=None):
+        """
+        Query `self.db`(UserDB) with the given id or username.
 
         Args:
             id (str, optional): id. Defaults to None.
@@ -24,12 +26,9 @@ class UsersRepo():
             
             return User(usr_d["id"],
                         usr_d["firstname"], usr_d["lastname"], usr_d["username"], usr_d["password"])
-            
-        print(un)
                     
         if id:
             usr_d : dict = self.db.find_user_by_id(id)
-
             
         elif un:
             usr_d: dict = self.db.find_user_by_username(un)
@@ -38,10 +37,10 @@ class UsersRepo():
             return None
 
         return map_dict_user(usr_d)
-            
 
     def create(self, f: str, l: str, u: str, p: str):
-        """Creates `User` instance based off on the given user credentials. The `password` will be hashed in here. The created `User` instance will be saved by the `self.db`(UserDB).
+        """
+        Creates `User` instance based off on the given user credentials. The `password` will be hashed in here. The created `User` instance will be saved by the `self.db`(UserDB).
 
         Args:
             f (str): firstname
