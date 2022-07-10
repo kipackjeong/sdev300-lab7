@@ -1,6 +1,6 @@
 from datetime import timedelta
 from flask import Blueprint, session, current_app as app
-from flask_login import login_required
+from flask_login import current_user, login_required
 from datetime import timedelta
 from flask import session, flash, redirect, render_template, request, url_for
 from flask_login import login_required
@@ -16,11 +16,12 @@ main_bp = Blueprint(
 
 webs_repo = WebsitesRepo()
 
+ALL_WEBS = webs_repo.get_all_websites()
 HOUSING_WEBS = webs_repo.get_housing_websites()
 RECIPE_WEBS = webs_repo.get_recipe_websites()
 WEATHER_WEBS = webs_repo.get_weather_websites()
 
-@main_bp.before_request
+@main_bp.before_request 
 def before_request():
     # session does not expire after the browser close
     session.permanent = True
@@ -33,8 +34,7 @@ def index():
 
     search_form = SearchForm()
     
-    return render_template("index.html", house_webs=HOUSING_WEBS, RECIPE_WEBS=RECIPE_WEBS, weather_webs=WEATHER_WEBS, form=search_form)
-    # Register Blueprints
+    return render_template("index.html", house_webs=HOUSING_WEBS, RECIPE_WEBS=RECIPE_WEBS, weather_webs=WEATHER_WEBS, form=search_form, user = current_user)
 
 @main_bp.route("/result", methods=["GET", "POST"])
 @login_required
@@ -99,3 +99,8 @@ def result():
         print(e)
 
     return redirect("/")
+
+@main_bp.route("/websites", methods = ["GET"])
+@login_required
+def websites():
+    return render_template("websites.html", websites=ALL_WEBS , user = current_user)

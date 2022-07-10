@@ -16,9 +16,9 @@
     <link rel="stylesheet" href="" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   </head>
-
+  
   <body>
-    <h1>LOGO</h1>
-    <div id="main">{% block content %} {% endblock %}</div>
+    {% include "nav.html" %}
+    {% block content %} {% endblock %}
   </body>
 </html>

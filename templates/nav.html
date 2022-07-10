@@ -1,6 +1,9 @@
-
 {% block nav %}
-    <nav>
-            <a href="{{url_for('auth_bp.logout')}}"> register </a>
-    </nav>
-{% endblock %}
+    {% if user %}
+        <nav>
+                <a href="{{url_for('main_bp.index')}}"> search </a>
+                <a href="{{url_for('main_bp.websites')}}"> websites </a>
+                <a href="{{url_for('auth_bp.logout')}}"> logout </a>
+        </nav>
+    {% endif %}
+{% endblock %} 

@@ -24,10 +24,13 @@ class WebsitesRepo():
     def __init__(self) -> None:
         self.__db = WebsitesDB("./data/websites.json")
         
-        self.__housing_websites = self.__db.load_data()["housing_websites"]
-        self.__recipe_websites = self.__db.load_data()["recipe_websites"]
-        self.__weather_websites = self.__db.load_data()["weather_websites"]
+        self.__all_websites  = self.__db.load_data()
+        self.__housing_websites = self.__all_websites["housing_websites"]
+        self.__recipe_websites = self.__all_websites["recipe_websites"]
+        self.__weather_websites = self.__all_websites["weather_websites"]
     
+    def get_all_websites(self):
+        return self.__all_websites
     
     def get_housing_websites(self):
         return self.__housing_websites

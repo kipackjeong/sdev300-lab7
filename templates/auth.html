@@ -9,6 +9,7 @@
 {% endmacro %}
 
 {% block content%}
+{% include "header.html" %}
 <div class="flex-column auth-form-cont">
   <form
     action = "/{{form_for}}"
@@ -16,6 +17,7 @@
     class="flex-column auth-form {{form_for}}-form"
   >
     {{form.csrf_token}} 
+    
     <!-- Register -->
     {% if form_for == "register" %}
       {{buildInput(form.firstname)}}
