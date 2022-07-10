@@ -1,9 +1,25 @@
 {% block nav %}
     {% if user %}
-        <nav>
-                <a href="{{url_for('main_bp.index')}}"> search </a>
-                <a href="{{url_for('main_bp.websites')}}"> websites </a>
+        <nav id = "navigation">
+
+            <!-- render websites link when on index(search) page, and visa versa -->
+            {% if page == "index" %}
+                <div class="flex-column nav-column">                
+                    <img src = "../static/imgs/websites.png"/>
+                    <a href="{{url_for('main_bp.websites')}}"> websites </a>
+                </div>
+            {% else %}
+                <div class="flex-column nav-column">
+                    <img src = "../static/imgs/search.png"/>
+                    <a href="{{url_for('main_bp.index')}}"> search </a>
+                </div>
+            {% endif %}
+
+
+            <div class="flex-column nav-column">
+                <img src = "../static/imgs/logout.png"/>
                 <a href="{{url_for('auth_bp.logout')}}"> logout </a>
+            </div>
         </nav>
     {% endif %}
 {% endblock %} 

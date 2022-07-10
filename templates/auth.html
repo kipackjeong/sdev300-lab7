@@ -17,7 +17,7 @@
     class="flex-column auth-form {{form_for}}-form"
   >
     {{form.csrf_token}} 
-    
+
     <!-- Register -->
     {% if form_for == "register" %}
       {{buildInput(form.firstname)}}
@@ -25,11 +25,7 @@
     {% else %}
       {% with err_msg = get_flashed_messages()[0] %}
         <span class="warning-msg">
-          {% if err_msg == "wrong username"%}
-            The username does not exist.
-          {% elif err_msg == "wrong password" %}
-            The password does not match with the given username.
-          {% endif %}
+          {{err_msg}}
         </span>
       {% endwith %}
     {% endif %}
@@ -62,7 +58,12 @@
   </form>
 
   {% with other_form = "register" if form_for == "login" else "login" %}
-  <a href="/{{other_form}}"> {{other_form}} </a>
+
+  <div class = "flex-column auth-form_other-link">
+    <img src = "../static/imgs/{{other_form}}.png"/>
+    <a href="/{{other_form}}"> {{other_form}} </a>
+  </div>
+
   
   {% endwith %}
 

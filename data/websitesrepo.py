@@ -2,24 +2,12 @@
 
 """
 
-import json
+from data.websitesdb import WebsitesDB
 
-"""
-WebRepo
-    .housing_webs = {}
-    .recipe_webs = {}
-    .weather_webs = {
-        
-        "some.com" : {
-            "name" : "",
-            "url" : "",
-            "search_url": ""
-        }
-    }
-
-    
-"""
 class WebsitesRepo():
+    """A repository that specifically deals with the end point of the data flow , `WebsitesDB`.
+    Can fetch all websites, housing websites, recipe websites, and weather websites.
+    """
     
     def __init__(self) -> None:
         self.__db = WebsitesDB("./data/websites.json")
@@ -30,31 +18,30 @@ class WebsitesRepo():
         self.__weather_websites = self.__all_websites["weather_websites"]
     
     def get_all_websites(self):
+        """ Returns all the websites in the websites.json. 
+
+        Returns:
+            dict: dictionary of the websites, keys are `housing_websites`, `recipe_websites`, and `weather websites`. 
+        """
         return self.__all_websites
-    
     def get_housing_websites(self):
+        """Returns all the housing websites in websites.json.
+
+        Returns:
+            dict : a dict of housing websites keys are websites' names.
+        """
         return self.__housing_websites
     def get_recipe_websites(self):
+        """Returns all the recipe websites in websites.json.
+
+        Returns:
+            dict : a dict of recipe websites, keys are websites' names.
+        """
         return self.__recipe_websites
     def get_weather_websites(self):
+        """Returns all the weather websites in websites.json.
+
+        Returns:
+            dict : a dict of weather websites, keys are websites' names.
+        """
         return self.__weather_websites
-    
-
-class WebsitesDB():
-    
-    def __init__(self,path:str) -> None:
-        self.path = path
-    
-    def load_data(self):
-        """
-        Opens the .json data file which has all the websites data.
-
-        """
-        f = open(self.path, encoding="UTF-8")
-        d = json.load(f)
-        f.close()
-
-        return d
-
-
-

@@ -14,7 +14,7 @@ main_bp = Blueprint(
     static_folder='static'
 )
 
-webs_repo = WebsitesRepo()
+webs_repo = app.websites_repo
 
 ALL_WEBS = webs_repo.get_all_websites()
 HOUSING_WEBS = webs_repo.get_housing_websites()
@@ -34,7 +34,7 @@ def index():
 
     search_form = SearchForm()
     
-    return render_template("index.html", house_webs=HOUSING_WEBS, RECIPE_WEBS=RECIPE_WEBS, weather_webs=WEATHER_WEBS, form=search_form, user = current_user)
+    return render_template("index.html", house_webs=HOUSING_WEBS, RECIPE_WEBS=RECIPE_WEBS, weather_webs=WEATHER_WEBS, form=search_form, user = current_user, page="index")
 
 @main_bp.route("/result", methods=["GET", "POST"])
 @login_required
@@ -80,14 +80,18 @@ def result():
 
             website = WEATHER_WEBS[web_name]
 
+            # look up zipcode
             zip_result = zipcode_lookup(search_value)
 
+            # invalid zipcode handle
             if not zip_result:
-                flash("The Zip-code is not a valid zipcode.")
+                flash("The Zip-code is an invalid zipcode.")
                 return redirect(url_for("index"))
             else:
+                # valid
                 state, city = zip_result
 
+            # fetch new url.
             extended_url = populate_loc_url(
                 website["search_url"], city=city, state=state, zipcode=search_value)
 

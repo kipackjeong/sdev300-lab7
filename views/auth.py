@@ -1,16 +1,16 @@
 from functools import wraps
-from flask import Blueprint, flash, redirect, render_template, url_for
+from flask import Blueprint, current_app as app, flash, redirect, render_template, url_for
 from flask_login import  current_user, login_remembered, login_required, login_user, logout_user
-from data import User, UsersRepo
+from data import User
 from form.forms import LoginForm, RegisterForm
-
-users_repo = UsersRepo()
 
 auth_bp = Blueprint(
     'auth_bp', __name__,
     template_folder='templates',
     static_folder='static'
 )
+
+users_repo = app.users_repo
 
 def not_logged_in_required(fn):
 
@@ -31,13 +31,9 @@ def not_logged_in_required(fn):
 def register():
     
     reg_form = RegisterForm()
-    print(reg_form.__getattribute__("_fields")["username"])
-    for i in reg_form.__getattribute__("_fields").values():
-        print(i)
-    
     
     if reg_form.validate_on_submit():
-        
+
         # create user
         new_user: User = users_repo.create(
             reg_form.firstname.data, reg_form.lastname.data, reg_form.username.data, reg_form.password.data
@@ -63,13 +59,13 @@ def login():
         
         # user with the username not found
         if not foundUser:
-            flash("wrong username")
-            return redirect(url_for("auth_bp.login"))
+            flash("The user with the given username not found.")
+            return render_template("auth.html", form_for="login", form=login_form)
 
         # password does not match
         if not foundUser.check_password(login_form.password.data):
-            flash("wrong password")
-            return redirect(url_for("auth_bp.login"))
+            flash("The password does not match.")
+            return render_template("auth.html", form_for="login", form=login_form)
 
         login_user(foundUser)
         print("login successful")

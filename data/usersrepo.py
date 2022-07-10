@@ -57,7 +57,7 @@ class UsersRepo():
         hashed_pwd = sha256_crypt.hash(p)
         
         # if user with the same username exists
-        if self.query(u):
+        if self.query(un = u):
             return 
         
         # create new User instance
