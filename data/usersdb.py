@@ -8,13 +8,10 @@ class UsersDB():
             self.data: list[User] = json.load(file)
             self.data_str = self.__create_data_str()
         
-    def find_user_by_id(self,id: str):
-
-        with open("./data/users.json", "r", encoding="UTF-8") as file:
-            data: list[User] = json.load(file)
+    def     find_user_by_id(self,id: str):
 
         found_list: list[dict] = list(
-            filter(lambda user: user["id"] == id, data))
+            filter(lambda user: user["id"] == id, self.data))
 
         if not found_list:
 

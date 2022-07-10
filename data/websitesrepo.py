@@ -4,13 +4,54 @@
 
 import json
 
-def load_data():
-    """
-    Opens the .json data file which has all the websites data.
+"""
+WebRepo
+    .housing_webs = {}
+    .recipe_webs = {}
+    .weather_webs = {
+        
+        "some.com" : {
+            "name" : "",
+            "url" : "",
+            "search_url": ""
+        }
+    }
 
-    """
-    f = open("./data/websites.json", encoding="UTF-8")
-    d = json.load(f)
-    f.close()
+    
+"""
+class WebsitesRepo():
+    
+    def __init__(self) -> None:
+        self.__db = WebsitesDB("./data/websites.json")
+        
+        self.__housing_websites = self.__db.load_data()["housing_websites"]
+        self.__recipe_websites = self.__db.load_data()["recipe_websites"]
+        self.__weather_websites = self.__db.load_data()["weather_websites"]
+    
+    
+    def get_housing_websites(self):
+        return self.__housing_websites
+    def get_recipe_websites(self):
+        return self.__recipe_websites
+    def get_weather_websites(self):
+        return self.__weather_websites
+    
 
-    return d
+class WebsitesDB():
+    
+    def __init__(self,path:str) -> None:
+        self.path = path
+    
+    def load_data(self):
+        """
+        Opens the .json data file which has all the websites data.
+
+        """
+        f = open(self.path, encoding="UTF-8")
+        d = json.load(f)
+        f.close()
+
+        return d
+
+
+

@@ -20,27 +20,25 @@ class UsersRepo():
             un (str, optional): username. Defaults to None.
         """
         
-        def map_dict_user(usr_dict) -> User:
+        def map_dict_user(usr_d) -> User:
             
-            return User(usr_dict["id"],
-            usr_dict["firstname"], usr_dict["lastname"], usr_dict["username"], usr_dict["password"])
+            return User(usr_d["id"],
+                        usr_d["firstname"], usr_d["lastname"], usr_d["username"], usr_d["password"])
             
-            
-        usr : User = None
-        
+        print(un)
+                    
         if id:
-            usr_dict : dict = self.db.find_user_by_id(id)
-            usr = map_dict_user(usr_dict)
+            usr_d : dict = self.db.find_user_by_id(id)
+
             
         elif un:
-            usr_dict: dict = self.db.find_user_by_username(un)
+            usr_d: dict = self.db.find_user_by_username(un)
             
-            if not usr_dict:
-                return None
+        if not usr_d:
+            return None
 
-            usr = map_dict_user(usr_dict)
+        return map_dict_user(usr_d)
             
-        return usr
 
     def create(self, f: str, l: str, u: str, p: str):
         """Creates `User` instance based off on the given user credentials. The `password` will be hashed in here. The created `User` instance will be saved by the `self.db`(UserDB).
@@ -58,7 +56,11 @@ class UsersRepo():
         id = uuid.uuid1()
         # hash the pw
         hashed_pwd = sha256_crypt.hash(p)
-
+        
+        # if user with the same username exists
+        if self.query(u):
+            return 
+        
         # create new User instance
         user = User(id, f.lower(), l.lower(), u, hashed_pwd)
         

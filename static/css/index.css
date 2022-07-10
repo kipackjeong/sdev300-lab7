@@ -84,10 +84,16 @@ align-items: center;
   opacity:0.5;
 }
 
+.form-input-cont label {
+  position: relative;
+  height: 0px;
+  top: 7px;
+  left: 9px;
+  font-size: 13px;
+  opacity: 0.7;
+}
 .form-input {
-  width: 100%;
   height: 35px;
-  font-size: medium;
 }
 
 .form-btn {
@@ -116,12 +122,22 @@ align-items: center;
   align-items: center;
 }
 
-.auth-form input,
-.auth-form button {
+.auth-form-input{
+  height: 45px;
+
+  padding-top: 11px;
+  padding-left: 5px;
+  padding-right: 5px;
+
+  font-size: medium;
+}
+
+
+.auth-form input, .auth-form-btn{
   width: 200px;
   margin: 5px;
 }
+
 .auth-form-cont a {
-  width: 100px;
   text-align: center;
 }

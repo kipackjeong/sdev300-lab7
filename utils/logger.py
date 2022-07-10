@@ -10,4 +10,3 @@ def error(msg):
     msg = Fore.RED + "ERR: " + str(msg) + Fore.RESET
 
     print(msg)
-    

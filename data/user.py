@@ -20,11 +20,6 @@ class User(UserMixin):
         if password:
             self.password = password
 
-        id = kwargs.get("id")
-        if id:
-            self.id = id
-        else:
-            self.id = uuid.uuid1()
 
 
     def reset_password(self, p:str):

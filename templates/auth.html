@@ -1,4 +1,14 @@
-{% extends "layout.html" %} {% block content%}
+{% extends "layout.html" %}
+{% macro buildInput(field) %}
+    <div class = "flex-column form-input-cont">
+      <label>
+        {{field.label.text}}
+      </label>
+      {{ field(size=20, class = "form-input auth-form-input")}}
+    </div>
+{% endmacro %}
+
+{% block content%}
 <div class="flex-column auth-form-cont">
   <form
     action = "/{{form_for}}"
@@ -6,38 +16,52 @@
     class="flex-column auth-form {{form_for}}-form"
   >
     {{form.csrf_token}} 
-
+    <!-- Register -->
     {% if form_for == "register" %}
-
-      {{ form.firstname(size=20, placeholder= form.firstname.label.text, class = "form-input")}}
-
-      {{ form.lastname(size=20, placeholder= form.lastname.label.text, class ="form-input")}}
-
-    {% endif %}
-
+      {{buildInput(form.firstname)}}
+      {{buildInput(form.lastname)}}
+    {% else %}
       {% with err_msg = get_flashed_messages()[0] %}
         <span class="warning-msg">
-
           {% if err_msg == "wrong username"%}
-            the username does not exist.
+            The username does not exist.
           {% elif err_msg == "wrong password" %}
-            the password does not match
+            The password does not match with the given username.
           {% endif %}
-
         </span>
       {% endwith %}
+    {% endif %}
 
-      {{ form.username(size=20, placeholder=form.username.label.text, class ="form-input")}}
+      {{buildInput(form.username)}}
+      {{buildInput(form.password)}}
+      
+      <!-- Register -->
+      {% if form_for == "register" %}
+      {{buildInput(form.password_confirm)}}
+      {% endif %}
 
-      {{ form.password(size=20, placeholder=form.password.label.text, class ="form-input")}}
 
+      {% if form.username.errors %}
+        <div class="warning-msg">  
+          {% for error in form.username.errors %}
+            <span>{{ error }}</span>
+          {% endfor %}
+        </div>
+      {% endif %}
 
-
-      {{form.submit(class ="form-btn")}}
+      {% if form.password.errors %}
+        <div class="warning-msg">  
+          {% for error in form.password.errors %}
+            <span>{{ error }}</span>
+          {% endfor %}
+        </div>
+      {% endif %}
+      {{form.submit(class ="form-btn auth-form-btn")}}
   </form>
 
   {% with other_form = "register" if form_for == "login" else "login" %}
   <a href="/{{other_form}}"> {{other_form}} </a>
+  
   {% endwith %}
 
 </div>
