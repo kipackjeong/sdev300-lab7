@@ -1,0 +1,88 @@
+{% extends "layout.html" %}
+{% block content %}
+{% include "header.html"%}
+
+<table>
+<thead>
+    <th>
+        Housing Website
+    </th>
+    <th>
+        URL
+    </th>
+</thead>
+
+<tbody>
+    {% for website in websites['housing_websites'].values() %}
+
+        <tr>
+            <td>
+                {{website.name}}
+            </td>
+            <td>
+                <a href="{{website.url}}">
+                    {{website.url}}
+                </a>
+            </td>
+
+        </tr>
+    {% endfor %}
+
+</tbody>
+<thead>
+    <th>
+        Recipe Website
+    </th>
+    <th>
+        URL
+    </th>
+</thead>
+
+<tbody>
+    {% for website in websites['recipe_websites'].values() %}
+
+        <tr>
+            <td>
+                {{website.name}}
+            </td>
+            <td>
+                <a href="{{website.url}}">
+                    {{website.url}}
+                </a>
+            </td>
+
+        </tr>
+    {% endfor %}
+
+</tbody>
+<thead>
+    <th>
+        Weather Website
+    </th>
+    <th>
+        URL
+    </th>
+</thead>
+
+<tbody>
+    {% for website in websites['weather_websites'].values() %}
+
+        <tr>
+            <td>
+                {{website.name}}
+            </td>
+            <td>
+                <a href="{{website.url}}">
+                    {{website.url}}
+                </a>
+            </td>
+
+        </tr>
+    {% endfor %}
+
+</tbody>
+
+</table>
+
+
+{% endblock %}

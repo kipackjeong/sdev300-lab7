@@ -1,8 +1,5 @@
 """A module that has exception handling methods.
 """
-from re import A
-from colorama import Fore
-from flask import flash
 from utils.logger import error
 
 
