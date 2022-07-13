@@ -7,12 +7,14 @@ Date:
 
 """
 
-from flask import Flask, redirect, url_for
-from flask_login import LoginManager
-from data.usersrepo import UsersRepo
-from data.websitesrepo import WebsitesRepo
-
 import config
+from flask import Flask
+from data import WebsitesRepo
+from flask_mail import Mail
+
+from utils import logger
+from utils.email import send_email
+
 
 CATEGORIES = ["housing", "food", "weather"]
 
@@ -23,9 +25,12 @@ class App(Flask):
     Inherits:
         Flask
     """
-    users_repo = UsersRepo()
-    websites_repo = WebsitesRepo()
 
+    def __init__(self, import_name: str, static_url_path=None, static_folder="static", static_host=None, host_matching: bool = False, subdomain_matching: bool = False, template_folder="templates", instance_path=None, instance_relative_config: bool = False, root_path=None):
+        super().__init__(import_name, static_url_path, static_folder, static_host, host_matching,
+                         subdomain_matching, template_folder, instance_path, instance_relative_config, root_path)
+        self.websites_repo = WebsitesRepo()
+        self.mail = None
 
 
 def create_app():
@@ -34,43 +39,32 @@ def create_app():
     Args:
         users_repo (_type_): user repo to user.
     """
-    def create_login_manager(app: App):
-        login_manager = LoginManager()
-        login_manager.login_view = 'auth.login'
-        login_manager.init_app(app)
-
-        @login_manager.user_loader
-        def load_user(user_id):
-            # Check if user is logged-in on every page load.
-            if user_id is not None:
-                return app.users_repo.query(user_id)
-
-            return None
-
-        @login_manager.unauthorized_handler
-        def unauthorized():
-            # Redirect unauthorized users to Login page.
-            return redirect(url_for('auth_bp.login'))
 
     app = App(__name__)
     app.secret_key = config.FLASK_SECRET_KEY
 
     with app.app_context():
-        
+
         from views import auth_bp, main_bp
-        
+
         # Register blueprints
         app.register_blueprint(auth_bp)
         app.register_blueprint(main_bp)
 
-        create_login_manager(app)
+        app.config['MAIL_SERVER'] = config.MAIL_SERVER
+        app.config['MAIL_PORT'] = config.MAIL_PORT
+        app.config['MAIL_USE_SSL'] = config.MAIL_USE_SSL
+        app.config['MAIL_USERNAME'] = config.MAIL_USERNAME
+        app.config['MAIL_PASSWORD'] = config.MAIL_PASSWORD
+
+        mail = Mail(app)
+        app.mail = mail
 
     return app
 
 
 # create app
 app = create_app()
-
 # when cmd executed: python app.py
 if __name__ == "__main__":
     app.config["ENV"] = config.ENV

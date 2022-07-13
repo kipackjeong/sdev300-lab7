@@ -2,19 +2,21 @@
 """
 from datetime import timedelta
 from flask import Blueprint, session, current_app as app
+import flask
 from flask_login import current_user, login_required
 from datetime import timedelta
 from flask import session, flash, redirect, render_template, request, url_for
 from flask_login import login_required
 from data.websitesrepo import WebsitesRepo
 from form.forms import SearchForm
-from utils import zipcode_lookup, populate_loc_url
+from utils import logger, zipcode_lookup, populate_loc_url
 
 main_bp = Blueprint(
     'main_bp', __name__,
     template_folder='templates',
     static_folder='static'
 )
+
 
 webs_repo = app.websites_repo
 
@@ -23,20 +25,26 @@ HOUSING_WEBS = webs_repo.get_housing_websites()
 RECIPE_WEBS = webs_repo.get_recipe_websites()
 WEATHER_WEBS = webs_repo.get_weather_websites()
 
-@main_bp.before_request 
+
+@main_bp.before_request
 def before_request():
-    # session does not expire after the browser close
-    session.permanent = True
+
+    # session does expire after the browser close
+    session.permanent = False
     # timeout for session lifetime - 10 minutes
     app.permanent_session_lifetime = timedelta(minutes=10)
+
 
 @main_bp.route("/", methods=["GET"])
 @login_required
 def index():
 
     search_form = SearchForm()
-    
-    return render_template("index.html", house_webs=HOUSING_WEBS, RECIPE_WEBS=RECIPE_WEBS, weather_webs=WEATHER_WEBS, form=search_form, user = current_user, page="index")
+
+    logger.test_log(str(current_user))
+
+    return render_template("index.html", house_webs=HOUSING_WEBS, RECIPE_WEBS=RECIPE_WEBS, weather_webs=WEATHER_WEBS, form=search_form, user=current_user, page="index")
+
 
 @main_bp.route("/result", methods=["GET", "POST"])
 @login_required
@@ -106,7 +114,8 @@ def result():
 
     return redirect("/")
 
-@main_bp.route("/websites", methods = ["GET"])
+
+@main_bp.route("/websites", methods=["GET"])
 @login_required
 def websites():
-    return render_template("websites.html", websites=ALL_WEBS , user = current_user)
+    return render_template("websites.html", websites=ALL_WEBS, user=current_user)

@@ -1,25 +1,46 @@
-{% block nav %}
-    {% if user %}
-        <nav id = "navigation">
+{% block nav %} {% if user %}
+<nav id="navigation">
+  <!-- render websites link when on index(search) page, and visa versa -->
+  {% if page == "index" %}
 
-            <!-- render websites link when on index(search) page, and visa versa -->
-            {% if page == "index" %}
-                <div class="flex-column nav-column">                
-                    <img src = "../static/imgs/websites.png"/>
-                    <a href="{{url_for('main_bp.websites')}}"> websites </a>
-                </div>
-            {% else %}
-                <div class="flex-column nav-column">
-                    <img src = "../static/imgs/search.png"/>
-                    <a href="{{url_for('main_bp.index')}}"> search </a>
-                </div>
-            {% endif %}
+  <div class="nav-item">
+        <a class = "flex-column  nav-column" href="{{url_for('main_bp.websites')}}">
+            <img src="../static/imgs/websites.png" />
+            <p> Websites </p>
+        </a>
+  </div>
 
+  {% else %}
 
-            <div class="flex-column nav-column">
-                <img src = "../static/imgs/logout.png"/>
-                <a href="{{url_for('auth_bp.logout')}}"> logout </a>
-            </div>
-        </nav>
-    {% endif %}
-{% endblock %} 
+  <div class="nav-item" >
+    <a class = "flex-column nav-column"  href= "{{url_for('main_bp.index')}}">
+        <img src="../static/imgs/search.png" />
+        <p> Search </p>
+    </a>
+
+  </div>
+  {% endif %}
+
+  <div class="dropdown">
+    <div
+      class="flex-column btn dropdown nav-column"
+      type="button"
+      id="dropdownMenuButton"
+      data-toggle="dropdown"
+      aria-haspopup="true"
+      aria-expanded="false"
+    >
+        <img src = "../static/imgs/account.png"/>
+         <p> Account </p>
+    </div>
+
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+      <a class="dropdown-item flex-row" href="{{url_for("auth_bp.logout")}}">
+        Logout 
+     </a>
+      <a class="dropdown-item flex-row" href="{{url_for("auth_bp.reset_pw_request")}}">Password reset</a>
+    </div>
+
+  </div>
+</nav>
+{% endif %} {% endblock %}

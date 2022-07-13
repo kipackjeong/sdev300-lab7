@@ -1,11 +1,5 @@
 <!-- params = house_web, food_webs, weather_webs -->
-{% extends 'layout.html' %}     
-
-{% include "nav.html"%}
-
-{% block content %}
-    {% include "header.html" %}
-    <p> Hello, {{user.firstname}} </p>
-    <p>You can search for housing, recipe, and weather.</p>
-    {% include 'searchform.html' %} 
-{% endblock %}     vbg           
+{% extends 'layout.html' %} {% block content %} {% include "header.html" %}
+<p>Hello, {{user.firstname}}</p>
+<p>You can search for housing, recipe, and weather.</p>
+{% include 'searchform.html' %} {% endblock %}

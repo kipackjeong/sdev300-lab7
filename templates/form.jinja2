@@ -1,0 +1,20 @@
+{% macro build_input(field) %}
+<div class="flex-column form-input-cont">
+  {% if field.errors %} {% for error in field.errors %}
+
+
+  {% endfor %} {% endif %}
+  <label> {{field.label.text}} </label>
+  {{ field(size=20, class = "form-input auth-form-input")}}
+</div>
+{% endmacro %}
+
+{% macro build_form(form) %}
+        <form method=post>
+            {{form.csrf_token}}
+            {% for field in form %}
+                {{buildInput(field)}}
+            {% endfor %}
+        </form>
+
+{% endmacro %}
