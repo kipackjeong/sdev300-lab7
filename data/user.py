@@ -41,7 +41,7 @@ class User(UserMixin):
         # set it
         self.password = hashed_p
 
-    def check_password(self, p: str):
+    def check_password(self, p: str) -> bool:
         """Matches and validates the given password with the user's password. The hash verifying is used.
 
         Args:

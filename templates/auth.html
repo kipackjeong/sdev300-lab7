@@ -1,19 +1,24 @@
-{% extends "layout.html" %} {% import "form.jinja2" as form_macro %} {% block
-content%} {% include "header.html" %}
+{% extends "layout.html" %} {% import "auth-form.jinja2" as form_macro %}
+{%include "header.html"%} 
+
+
+{%block content%}
+<link
+  href="{{ url_for('static', filename='css/forms.css') }}"
+  rel="stylesheet"
+/>
+<link
+  href="{{ url_for('static', filename='css/error.css') }}"
+  rel="stylesheet"
+/>
 
 <div class="flex-column auth-form-cont">
-
-  {{form_macro.build_form(form, 'auth-form')}}
-  
-
-
-  {% with other_form = "register" if form_for == "login" else "login" %}
-
+  {{form_macro.build_auth_form(form)}} {%with other_form = "register" if
+  form_for == "login" else "login" %}
   <div class="flex-column auth-form_other-link">
     <img src="../static/imgs/{{other_form}}.png" />
     <a href="/{{other_form}}"> {{other_form}} </a>
   </div>
-
-  {% endwith %}
+  {%endwith%}
 </div>
-{% endblock %}
+{%endblock%}

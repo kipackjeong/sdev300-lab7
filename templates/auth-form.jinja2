@@ -1,0 +1,38 @@
+{%import "error.jinja2" as error%}
+
+{% macro build_input(field, class, size = 20) %}
+<div class="flex-column form-input-cont">
+
+    <!-- ERROR -->
+    {{error.build_error(field)}}
+
+    <label>  {% if class != "form-btn" %} {{field.label.text}}  {% endif %}</label>
+
+    {{ field(size = size, class = class)}}
+
+</div>
+{% endmacro %}
+
+
+{% macro build_auth_form(form) %}
+        <form method=post class = "auth-form">
+            {{form.csrf_token}}
+            {% for field in form %}
+
+                {% if field.type != "SubmitField" %}
+                  {{build_input(field,"form-input auth-form-input")}}
+
+                {% else %}
+                  {{build_input(field, "form-btn")}}
+                {% endif %}
+                
+            {% endfor %}
+        </form>
+
+
+
+        {% with messages = get_flashed_messages() %} {% if messages %} {% for
+message in messages %} {{message}} {% endfor %} {% else %} {% endif %}
+{% endwith %}
+
+{% endmacro %}

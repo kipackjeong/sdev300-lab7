@@ -7,7 +7,7 @@ from wtforms.validators import InputRequired, Length, DataRequired, EqualTo, Val
 from data import User
 
 
-class AuthForm(FlaskForm):
+class LoginForm(FlaskForm):
     """
 
     Inherits:
@@ -17,23 +17,33 @@ class AuthForm(FlaskForm):
                            InputRequired(), Length(min=1, max=20)])
     password = PasswordField("Password", validators=[
         DataRequired()], name="password")
-
-
-class LoginForm(AuthForm):
-    """Form that is used in `/login` route.
-
-    Inherits:
-        `AuthForm`
-    """
     submit = SubmitField("Login")
 
+    def validate_username(self, field):
 
-class RegisterForm(AuthForm):
+        # if username does not exists in db.
+        if not User.query(un=field.data):
+            raise ValidationError("Incorrect username.")
+
+    def validate_password(self, field):
+        pw = field.data
+
+        user = User.query(un=self.username.data)
+
+        if not user.check_password(pw):
+            raise ValidationError("Incorrect password.")
+
+
+class RegisterForm(FlaskForm):
+
     firstname = StringField("First Name", validators=[
                             DataRequired(), Length(min=1, max=20)], name="firstname")
     lastname = StringField("Last Name", validators=[
         DataRequired(), Length(min=1, max=20)], name="lastname")
-
+    username = StringField("Username",  validators=[
+        InputRequired(), Length(min=1, max=20)])
+    password = PasswordField("Password", validators=[
+        DataRequired()], name="password")
     password_confirm = PasswordField("Password Confirm", validators=[
                                      DataRequired(), EqualTo("password", "The password confirm field must be equal to password.")], name="password_confirm")
 
@@ -41,6 +51,7 @@ class RegisterForm(AuthForm):
 
     def validate_username(self, field):
 
+        # if username already exists in db.
         if User.query(un=field.data):
             raise ValidationError("The username already exists.")
 

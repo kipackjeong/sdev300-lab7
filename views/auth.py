@@ -84,16 +84,6 @@ def login():
         # find user from db
         foundUser: User = User.query(un=login_form.username.data)
 
-        # user with the username not found
-        if not foundUser:
-            flash("The user with the given username not found.")
-            return render_template("auth.html", form_for="login", form=login_form)
-
-        # password does not match
-        if not foundUser.check_password(login_form.password.data):
-            flash("The password does not match.")
-            return render_template("auth.html", form_for="login", form=login_form)
-
         login_user(foundUser)
 
         logger.success(f"The user {foundUser.username} is logged in.")
