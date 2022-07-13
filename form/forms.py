@@ -32,9 +32,15 @@ class LoginForm(FlaskForm):
 
     def validate_password(self, field):
         pw = field.data
-
-        user = User.query(un=self.username.data)
-
+        un = self.username.data
+        
+        # validate un first, if invalid, this will throw exception.
+        self.validate_username(self.username)
+            
+        # from here, un is valid
+        # find user
+        user = User.query(un=un)
+        # check password
         if not user.check_password(pw):
             logger.error(
                 f"{INCORRECT_PW_MSG} For username : {user.username}", "failedlogins.txt")
