@@ -8,6 +8,7 @@ init(convert=True)
 
 today_str = str(datetime.now().date())
 
+
 def success(msg: str):
     """ Displays success message on the console with green color and on log file which is at ./logs/{today's date}.
 
@@ -15,14 +16,14 @@ def success(msg: str):
         msg(str) : message to display
     """
 
-    s_msg = Fore.GREEN + "Success: " + Fore.RESET
+    s_msg = Fore.GREEN + "Success: " + msg + Fore.RESET
 
     __log_on_file(msg)
 
     print(s_msg)
 
 
-def error(msg):
+def error(msg, filename: str = None):
     """ Logs error message on the console and on log file which is at ./logs/{today's date}.
 
     Args:
@@ -31,22 +32,32 @@ def error(msg):
 
     e_msg = Fore.RED + "ERR: " + str(msg) + Fore.RESET
 
-    __log_on_file(msg)
+    if filename:
+        __log_on_file(msg, filename)
+
+    else:
+        __log_on_file(msg)
 
     print(e_msg)
 
-def test_log(msg: str, *args):
 
+def test_log(msg: str, *args):
 
     t_msg = Fore.YELLOW + msg + " ".join(args) + Fore.RESET
 
     print(t_msg)
 
 
-def __log_on_file(msg: str):
+def __log_on_file(msg: str, filename: str = None):
 
-    f = open(f"./logs/{today_str}.txt", "a")
+    if filename:
+        f = open(f"./logs/{filename}", "a")
+        f.write("\n" + str(datetime.now().time()) + " " + msg)
+        f.close()
 
-    f.write("\n" + str(datetime.now().time()) + " " + msg)
+    else:
+        f = open(f"./logs/{today_str}.txt", "a")
 
-    f.close()
+        f.write("\n" + str(datetime.now().time()) + " " + msg)
+
+        f.close()

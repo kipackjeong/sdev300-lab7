@@ -1,34 +1,18 @@
-{%extends "layout.html" %} {% block content %} {% macro buildInput(field) %}
-<div class="flex-column form-input-cont">
-  <label> {{field.label.text}} </label>
-  {{ field(size=20, class = "form-input auth-form-input")}}
-</div>
-{% endmacro %}
+<link
+  href="{{ url_for('static', filename='css/forms.css') }}"
+  rel="stylesheet"
+/>
+{%extends "layout.html" %} {%import "auth-form.jinja2" as auth_form %} {% block
+content %}
 
-<div class="pw-reset-cont">
+<div class="flex-column auth-form-cont reset-form-cont">
   {% if step =="after" %}
   <p>The password reset email was sent to {{email}}</p>
-
+  
   {% elif step == "before" %}
   <p>Please type in your email to send password reset link.</p>
-  <form action="" class="flex-column auth-form" method="POST">
-    {{form.csrf_token}} {{buildInput(form.email)}} {{form.submit(class =
-    "form-btn")}}
-  </form>
-
-  {% elif step =="reset" %} {% if form.password_confirm.errors %}
-  <div class="warning-msg">
-    {% for error in form.password_confirm.errors %}
-    <span>{{ error }}</span>
-    {% endfor %}
-  </div>
-
-  {% endif %}
-
-  <form action="" class="flex-column auth-form" method="POST">
-    {{form.csrf_token}} {{buildInput(form.password)}}
-    {{buildInput(form.password_confirm)}} {{form.submit(class ="form-btn")}}
-  </form>
-  {% endif %}
+  {{auth_form.build_form(form)}} {% elif step =="reset" %}
+  {{auth_form.build_form(form)}} {% endif %}
 </div>
+
 {% endblock %}

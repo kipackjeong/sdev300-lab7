@@ -66,10 +66,9 @@ def register():
         User.create(
             reg_form.firstname.data, reg_form.lastname.data, reg_form.username.data, reg_form.password.data
         )
+        
+        logger.success(f"The user {reg_form.username.data} is registered.")
         return redirect(url_for("auth_bp.login"))
-
-    logger.success(f"The user {reg_form.username.data} is registered.")
-
     return render_template("auth.html", form_for="register", form=reg_form)
 
 

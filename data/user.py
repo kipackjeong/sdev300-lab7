@@ -125,7 +125,7 @@ class User(UserMixin):
             _type_: _description_
         """
         # create unique id
-        id = uuid.uuid1()
+        id = str(uuid.uuid1())
         # hash the pw
         hashed_pwd = sha256_crypt.hash(p)
 

@@ -4,7 +4,7 @@
 <div class="flex-column form-input-cont">
 
     <!-- ERROR -->
-    {{error.build_error(field)}}
+    {{error.build_error(field.errors)}}
 
     <label>  {% if class != "form-btn" %} {{field.label.text}}  {% endif %}</label>
 
@@ -14,7 +14,7 @@
 {% endmacro %}
 
 
-{% macro build_auth_form(form) %}
+{% macro build_form(form) %}
         <form method=post class = "auth-form">
             {{form.csrf_token}}
             {% for field in form %}

@@ -13,7 +13,7 @@
 />
 
 <div class="flex-column auth-form-cont">
-  {{form_macro.build_auth_form(form)}} {%with other_form = "register" if
+  {{form_macro.build_form(form)}} {%with other_form = "register" if
   form_for == "login" else "login" %}
   <div class="flex-column auth-form_other-link">
     <img src="../static/imgs/{{other_form}}.png" />

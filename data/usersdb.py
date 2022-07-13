@@ -51,6 +51,8 @@ class UsersDB():
         self.data.append({"id": user.id, "firstname": user.firstname,
                          "lastname": user.lastname, "username": user.username, "password": user.password})
 
+        logger.test_log(str(self.data))
+
         # saves in .json file
         self.save()
 
@@ -73,6 +75,7 @@ class UsersDB():
 
     def save(self):
 
+        # create new string form for data to write on .json file
         self.data_str = self.__create_data_str()
         self.data_str.removesuffix("]")
 

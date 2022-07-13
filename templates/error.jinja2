@@ -1,15 +1,12 @@
-  {%macro build_error(field)%}
-  {% if field.errors %} 
-    {% for error in field.errors %}
-
+  {%macro build_error(errors)%}
+    {% for error in errors %}
         <div class="err-cont">
-            <div class="alert alert-danger" role="alert">
-            {{error}}
-            </div>
+
+                    <div class="alert alert-danger" role="alert">
+                    {{error}}
+                    </div>
+
         </div>
-
     {% endfor %}
-   {% endif %}
-
 
 {%endmacro%}

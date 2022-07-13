@@ -1,4 +1,8 @@
 {% block content %}
+<link
+  href="{{ url_for('static', filename='css/forms.css') }}"
+  rel="stylesheet"
+/>
 
 <form id="search-form" action="/result" method="POST" name="search_form">
   <div class="flex-row search-form_inputs">
@@ -9,10 +13,16 @@
 
     <!-- Search input -->
     <div class="flex-column search-form_inputs_input-panel">
-      <span class="warning-msg"">
+      <span class="warning-msg">
 
-        {% with messages = get_flashed_messages() %} {% if messages %} {% for
-        message in messages %} {{message}} {% endfor %} {% else %} {% endif %}
+        {% with messages = get_flashed_messages() %}
+
+           {% if messages %}
+              {% for message in messages %} 
+                {{message}} 
+              {% endfor %} 
+            {% endif %}
+
         {% endwith %}
 
       </span>
@@ -21,10 +31,12 @@
     </div>
 
     <!-- Website select -->
+
     <div class="flex-column search-form_inputs_select-panel">
       {{form.web_select(class = "form-select website-select")}}
     </div>
   </div>
+
   <!-- Search button -->
   {{form.submit(class="form-btn search-form_btn", disabled =True)}}
 </form>

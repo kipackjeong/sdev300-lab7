@@ -56,6 +56,7 @@
 }
 
 .auth-form-cont {
+  position: relative;
   width: 250px;
   align-items: center;
 }
@@ -89,10 +90,6 @@
     
 }
 
-:root {
-  --animation-speed: 3s;
-  --background-color: #212121;
-  --secondary-color: #000;
-  --text-color: #fff;
-}
+.reset-form-cont {
+width:auto}
 

@@ -1,3 +1,4 @@
+from utils import error, logger
 import re
 from flask import current_app as app
 from flask_wtf import FlaskForm
@@ -5,6 +6,9 @@ from wtforms import StringField, PasswordField, SubmitField, SelectField, Search
 from wtforms.validators import InputRequired, Length, DataRequired, EqualTo, ValidationError
 
 from data import User
+
+INCORRECT_PW_MSG = "Incorrect password."
+INCORRECT_UN_MSG = "Incorrect username."
 
 
 class LoginForm(FlaskForm):
@@ -20,10 +24,11 @@ class LoginForm(FlaskForm):
     submit = SubmitField("Login")
 
     def validate_username(self, field):
-
+        un = field.data
         # if username does not exists in db.
-        if not User.query(un=field.data):
-            raise ValidationError("Incorrect username.")
+        if not User.query(un=un):
+            error(f"{INCORRECT_PW_MSG} : {un}", "failedlogins.txt")
+            raise ValidationError(INCORRECT_UN_MSG)
 
     def validate_password(self, field):
         pw = field.data
@@ -31,7 +36,14 @@ class LoginForm(FlaskForm):
         user = User.query(un=self.username.data)
 
         if not user.check_password(pw):
-            raise ValidationError("Incorrect password.")
+            logger.error(
+                f"{INCORRECT_PW_MSG} For username : {user.username}", "failedlogins.txt")
+            raise ValidationError(INCORRECT_PW_MSG)
+
+
+f = open("CommonPassword.txt")
+COMMON_PWS = [line.strip() for line in f]
+f.close()
 
 
 class RegisterForm(FlaskForm):
@@ -51,8 +63,9 @@ class RegisterForm(FlaskForm):
 
     def validate_username(self, field):
 
+        un = field.data
         # if username already exists in db.
-        if User.query(un=field.data):
+        if User.query(un=un):
             raise ValidationError("The username already exists.")
 
     def validate_password(self, field):
@@ -67,6 +80,9 @@ class RegisterForm(FlaskForm):
         if not re.match("^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{12,}$", pwd):
             raise ValidationError(
                 "Password must be at least 12 characters, 1 lowercase, 1 uppercase, 1 number, and 1 special character.")
+
+        if pwd in COMMON_PWS:
+            raise ValidationError("The password is too simple.")
 
 
 class SearchForm(FlaskForm):
@@ -103,3 +119,6 @@ class ResetForm(FlaskForm):
         if not re.match("^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{12,}$", pwd):
             raise ValidationError(
                 "Password must be at least 12 characters, 1 lowercase, 1 uppercase, 1 number, and 1 special character.")
+
+        if pwd in COMMON_PWS:
+            raise ValidationError("The password is too simple.")
