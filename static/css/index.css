@@ -142,14 +142,22 @@ th,td{
   opacity: 0.5;
 }
 
+.form-input-cont {
+    width:100%;
+    align-items: center;
+
+}
 .form-input-cont label {
   position: relative;
   height: 0px;
   top: 13px;
-  left: 9px;
+  left: -64px;
   font-size: 13px;
   opacity: 0.7;
 }
+
+
+
 .form-input {
   height: 35px;
 }
@@ -189,8 +197,7 @@ th,td{
   font-size: medium;
 }
 
-.auth-form input,
-.auth-form-btn {
+.auth-form input{
   width: 200px;
   margin: 5px;
 }

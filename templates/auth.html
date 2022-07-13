@@ -2,7 +2,10 @@
 content%} {% include "header.html" %}
 
 <div class="flex-column auth-form-cont">
-  {{form_macro.build_form(form)}}
+
+  {{form_macro.build_form(form, 'auth-form')}}
+  
+
 
   {% with other_form = "register" if form_for == "login" else "login" %}
 

@@ -51,6 +51,8 @@ def create_app():
         app.register_blueprint(auth_bp)
         app.register_blueprint(main_bp)
 
+        logger.test_log("added isinstance")
+
         app.config['MAIL_SERVER'] = config.MAIL_SERVER
         app.config['MAIL_PORT'] = config.MAIL_PORT
         app.config['MAIL_USE_SSL'] = config.MAIL_USE_SSL

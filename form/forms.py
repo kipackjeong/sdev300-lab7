@@ -4,7 +4,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, SelectField, SearchField, EmailField
 from wtforms.validators import InputRequired, Length, DataRequired, EqualTo, ValidationError
 
-from data.user import User
+from data import User
 
 
 class AuthForm(FlaskForm):
@@ -17,6 +17,7 @@ class AuthForm(FlaskForm):
                            InputRequired(), Length(min=1, max=20)])
     password = PasswordField("Password", validators=[
         DataRequired()], name="password")
+
 
 class LoginForm(AuthForm):
     """Form that is used in `/login` route.
@@ -55,7 +56,8 @@ class RegisterForm(AuthForm):
         if not re.match("^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{12,}$", pwd):
             raise ValidationError(
                 "Password must be at least 12 characters, 1 lowercase, 1 uppercase, 1 number, and 1 special character.")
-                
+
+
 class SearchForm(FlaskForm):
     cat_select = SelectField("category", choices=[
                              "category", "housing", "recipe", "weather"], name="category")
@@ -90,4 +92,3 @@ class ResetForm(FlaskForm):
         if not re.match("^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{12,}$", pwd):
             raise ValidationError(
                 "Password must be at least 12 characters, 1 lowercase, 1 uppercase, 1 number, and 1 special character.")
-
